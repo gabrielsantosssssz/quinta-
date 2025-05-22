@@ -1,0 +1,22 @@
+package matricula_maven;
+
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoDatabase;
+
+public class BancodeDados {
+    private static final String URI = "mongodb+srv://gabrielsan22:gabriel%4013@usuario.rxszlib.mongodb.net/?retryWrites=true&w=majority&appName=usuario";
+    private static final String DB_NAME = "usuario"; // substitua se o nome real do banco for outro
+
+    private static MongoClient client = null;
+
+    public static MongoDatabase getDatabase() {
+        // Forçar uso do TLS 1.2
+        System.setProperty("jdk.tls.client.protocols", "TLSv1.2");
+
+        if (client == null) {
+            client = MongoClients.create(URI);
+        }
+        return client.getDatabase(DB_NAME);
+    }
+}
